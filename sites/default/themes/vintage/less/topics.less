@@ -1,0 +1,146 @@
+.codo_categories {
+  #codo_categories_ul {
+    padding: 0;
+    background: transparent;
+  }
+
+  .codo_category_label {
+    background: @categoryListLabelBg;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+
+    a {
+      color: @categoryListLabelColor;
+      font-weight: bold;
+      font-size: 14px;
+
+      &:hover {
+        color: @categoryListLabelColor;
+      }
+    }
+
+    .codo_category_title {
+      span {
+        font-size: 12px;
+        color: @categoryListLabelSecondaryColor;
+        padding-left: 5px;
+      }
+    }
+  }
+
+  .codo_categories_category {
+    background: @categoryListBg;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid @borderColor;
+
+    a {
+      vertical-align: top;
+    }
+
+    .codo_new_topic_badge {
+
+      padding: 2px 10px;
+      display: inline-block;
+      background: #ffc107;
+      color: #fff;
+      font-size: 10px;
+      border-radius: 2px;
+      vertical-align: top;
+    }
+
+    .codo_categories_category_icon {
+      display: inline-block;
+      width: 36px;
+      float: left;
+      margin-top: 4px;
+
+      img {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .codo_categories_category_name {
+      font-family: 'Open Sans', Helvetica;
+      margin-left: 10px;
+      width: 70%;
+
+      a:hover {
+        text-decoration: underline;
+      }
+      i {
+        position: relative;
+        top: 4px;
+        margin-right: 2px;
+        margin-left: 4px;
+      }
+
+      .codo_sub_category_name {
+        font-weight: normal;
+        display: inline-block;
+        padding: 5px 10px;
+
+        color: @descDarkColor;
+        i {
+          color: @descDarkColor;
+        }
+      }
+    }
+
+    .codo_categories_category_latest_topic {
+      width: 18%;
+      float: right;
+
+      .codo_categories_category_latest_topic_title  a {
+        color: @linkColor;
+
+        &:hover {
+          color: @linkHoverColor;
+        }
+      }
+
+      a {
+        font-family: 'Open Sans', Helvetica;
+        font-weight: normal;
+        vertical-align: inherit;
+
+        &:hover {
+          color: inherit;
+          text-decoration: underline;
+        }
+      }
+
+      > div {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 991px) {
+  .codo_categories {
+    display: block;
+  }
+
+  // Disable mobile search for this theme. TODO: Enable search
+  .codo_mobile_top_container {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .codo_categories .codo_categories_category .codo_categories_category_latest_topic {
+    width: 100% !important;
+    float: none !important;
+    padding-left: 46px;
+
+    .codo_categories_category_latest_topic_title {
+      margin-right: 10px;
+    }
+  }
+}

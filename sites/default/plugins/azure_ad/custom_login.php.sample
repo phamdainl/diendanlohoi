@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="icon" type="image/ico" href="favicon.ico"/>
+    <title>SixAxis Forum</title>
+
+    <!-- CSS Files -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <link  href="<?php echo PLUGIN_PATH . 'azure_ad/'; ?>assets/css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="page">
+
+    <div class="main-content">
+        <div class="container">
+            <p>Sign in with your Office 365 Email Address and Password <br></p>
+            <a class="login-btn" href=" <?php echo RURI . 'azure_ad/authorize'; ?>">Login with Microsoft Office 365</a>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Start -->
+    <footer class="footer-wrapper">
+
+    </footer>
+    <!-- Footer End -->
+
+    <!-- All Necessery Scripts -->
+</div>
+</body>
+</html>

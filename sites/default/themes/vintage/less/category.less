@@ -1,0 +1,320 @@
+.codo_topic_headers {
+  margin-top: 4px;
+  padding: 8px;
+  background: @bg;
+  color: @descDarkColor;
+  font-size: 12px;
+  border-bottom: 1px solid @borderColor;
+
+  div {
+    display: inline-block;
+  }
+
+  .codo_topics_title {
+    padding-left: 65px;
+  }
+
+  .codo_topics_replies {
+    text-align: left;
+  }
+
+  .codo_topics_views {
+    text-align: right;
+  }
+
+  .codo_topics_last_message {
+    text-align: right;
+  }
+}
+
+.codo_categories {
+  margin: 0;
+
+  #codo_create_topic_btn {
+    top: -50px;
+  }
+}
+
+.codo_bottom_create_topic_btn .row .codo_create_topic_btn {
+  display: block;
+}
+
+.codo_topics {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+  padding: 0;
+}
+
+.codo_topics article {
+  padding: 0;
+  border-color: @borderColor;
+  background: @borderLightColor;
+
+  .codo_posts_post_moderation {
+    top: 40%;
+
+    &:hover {
+      i {
+        color: inherit;;
+      }
+    }
+  }
+
+  > .codo_topics_topic_content {
+    margin: 0;
+    //padding: 15px 6px;
+    padding: 15px 6px 25px 6px;
+    background: @articleBg;
+
+    .codo_manage_button {
+      //display: none;
+    }
+
+    .codo_topics_topic_avatar {
+      position: static;
+      padding: 0;
+      text-align: center;
+      margin: auto;
+
+      img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+    }
+
+
+    .codo_topics_topic_title {
+      font-weight: bold;
+    }
+
+    .codo_topics_topic_name {
+      color: @descDarkColor;
+      font-size: 12px;
+    }
+
+    .codo_select_post_checkbox_label {
+      left: 28px;
+      bottom: -10px !important;
+      top: auto;
+    }
+  }
+
+  .codo_post_statistics {
+    padding: 15px 0;
+    background: @borderLightColor;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: @descLightColor;
+
+    > div {
+      display: flex;
+      padding: 0 10px;
+
+      .codo_post_statistics_label {
+        float: left;
+      }
+
+      .codo_post_statistics_value {
+        margin-left: auto;
+      }
+    }
+  }
+
+  .codo_topics_topic_foot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: @articleBg;
+
+    .codo_topics_last_post {
+      div {
+        text-align: right;
+      }
+    }
+  }
+
+}
+
+.codo_cat_top_title_area .codo_cat_top_title_box {
+  margin-left: 0;
+}
+
+.codo_cat_top_title_area img {
+  width: 75px;
+  border-radius: 50%;
+}
+
+.codo_cat_top_img_box {
+  text-align: center;
+}
+
+.codo_categories {
+  .codo_create_topic_btn {
+    right: 0;
+    width: 200px;
+    position: absolute;
+    //background: @bg;
+    top: 100px;
+  }
+}
+
+.codo_zero_topics {
+  margin-bottom: 0;
+}
+
+.codo_sub_categories {
+  padding: 0;
+
+  #codo_categories_ul {
+    padding: 0;
+
+    .codo_categories_category {
+      background: #fff;
+      width: 100%;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+
+      a {
+        color: @categoryList_A_Color;
+        .transition(0.5s all ease-in-out);
+
+        &:hover {
+          color: @categoryList_A_HoverColor;
+        }
+      }
+
+      > div {
+        display: inline-block;
+      }
+
+      .codo_categories_category_icon {
+        display: inline-block;
+        width: 36px;
+        float: left;
+        margin-top: 4px;
+
+        img {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      .codo_categories_category_name {
+        font-family: 'Open Sans', Helvetica;
+        margin-left: 10px;
+        width: 70%;
+
+        a {
+          color: #555;
+          font-size: 13px;
+          font-weight: bold;
+        }
+
+        .codo_sub_category_name {
+          font-weight: normal;
+          display: inline-block;
+          padding: 5px 10px;
+          color: #717171;
+
+          i {
+            color: #717171;
+          }
+        }
+      }
+
+      .codo_categories_category_latest_topic {
+        width: 18%;
+        float: right;
+        font-size: 13px;
+
+        .codo_categories_category_latest_topic_title {
+          a {
+            color: @linkColor;
+
+            &:hover {
+              color: @linkHoverColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.codo_topics article {
+  .codo_topics_topic_name a, .codo_topics_topic_title a, .codo_topics_last_post a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .codo_categories_category_latest_topic {
+    width: 100% !important;
+    float: none !important;
+    padding-left: 46px;
+
+    .codo_latest_topic_text {
+      display: none;
+    }
+
+    .codo_categories_category_latest_topic_title a {
+      white-space: nowrap;
+      display: block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  #codo_create_topic_btn {
+    position: static;
+  }
+
+  .codo_topics article > .codo_topics_topic_content .codo_select_post_checkbox_label {
+    left: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .codo_topic_headers {
+    display: none;
+  }
+
+  .codo_topics article .codo_post_statistics {
+    background: #fff;
+    color: inherit;
+    width: 50%;
+    margin: 0;
+    font-size: 12px;
+    padding: 6px 6px 6px 10.5%;
+
+    >div {
+      display: inline-block;
+
+      .codo_post_statistics_value {
+        text-align: center;
+      }
+    }
+  }
+
+  .codo_topics article>.codo_topics_topic_content {
+    padding: 15px 6px 6px 6px;
+  }
+
+  .codo_topics article .codo_topics_topic_foot {
+    width: 50%;
+  }
+
+  .codo_topics article > .codo_topics_topic_content .codo_select_post_checkbox_label {
+    display: none;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .codo_topics article > .codo_topics_topic_content .codo_select_post_checkbox_label {
+    left: 25px;
+  }
+}

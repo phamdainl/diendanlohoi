@@ -1,0 +1,125 @@
+<div class="row codo_topic_headers">
+    <div class="col-md-8 codo_topics_title">{{{i18n "Title"}}}</div>
+    <div class="col-md-1 codo_topics_replies">{{{i18n "Replies"}}}</div>
+    <div class="col-md-1 codo_topics_views">{{{i18n "Views"}}}</div>
+    <div class="col-md-2 codo_topics_last_message">{{{i18n "Last Message"}}}</div>
+</div>
+<div class="codo_page_{{{page_no}}}">
+    {{#each topics}}
+    <article class="{{{hide "hmm"}}} row">
+
+        <div class="codo_topics_topic_content col-md-8">
+
+            <div class="codo_posts_post_moderation">
+
+                {{#if can_manage_topic}}
+                <div class="dropdown codo_manage_topic">
+                    <div class="codo_manage_button" data-toggle="dropdown"  id="codo_manage_options_menu">
+                        <i class="icon-more-vert"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="codo_manage_options_menu">
+                        {{#if can_edit_topic}}
+                        <li id="codo_posts_edit_{{{topic_id}}}" class="dropdown-item codo_posts_edit_post codo_post_this_is_topic"
+                            role="presentation">
+                                <i class="icon-edit"></i> {{{i18n "Edit"}}}
+                            </li>
+                        {{/if}}
+                        {{#if can_delete_topic}}
+                        <li id="codo_posts_trash_{{{topic_id}}}" class="dropdown-item codo_posts_trash_post codo_post_this_is_topic"
+                            role="presentation">
+                                <i class="icon-trash"></i> {{{i18n "Delete"}}}
+                            </li>
+                        {{/if}}
+                    </ul>
+                </div>
+                {{/if}}
+
+            </div>
+
+            <div class='codo_badges'>
+
+                {{#if sticky}}
+                <span class="codo_badge_sticky" title="{{{i18n "topic is sticky"}}}">{{{i18n "sticky"}}}</span>
+                {{/if}}
+                {{#if closed}}
+                <span class="codo_badge_closed" title="{{{i18n "topic is closed"}}}">{{{i18n "closed"}}}</span>
+                {{/if}}
+            </div>
+
+            <div class="row">
+                <div class="col-1 codo_topics_topic_avatar" data-userid="{{id}}">
+                    <a href="{{{const "RURI"}}}user/profile/{{{id}}}">
+                    <img draggable="false" src="{{avatar}}" />
+                    </a>
+                    {{#if can_manage_topic}}
+                    <input type="checkbox" name="group1" id="codo_posts_select_{{{topic_id}}}" class="chk-box codo_posts_select_post">
+                    <label class="codo_select_post_checkbox_label" for="codo_posts_select_{{{topic_id}}}"></label>
+                    {{/if}}
+                </div>
+                <div class="col-11">
+                    {{#if in_search}}
+                    <div class="codo_topics_topic_title"><a id="codo_topic_link_{{topic_id}}" href="{{{const "RURI"}}}topic/{{{topic_id}}}/{{{safe_title}}}/post-{{{post_id}}}#post-{{{post_id}}}">{{{title}}}</a></div>
+                    {{else}}
+
+                    {{#if new_replies}}
+                    <div class="codo_topics_topic_title"><a id="codo_topic_link_{{topic_id}}" href="{{{const "RURI"}}}topic/{{{topic_id}}}/{{{safe_title}}}/post-{{{first_new_reply}}}#post-{{{first_new_reply}}}" style="font-size:16px;">{{{title}}}</a></div>
+                    {{else}}
+                    <div class="codo_topics_topic_title"><a id="codo_topic_link_{{topic_id}}" href="{{const "RURI"}}topic/{{{topic_id}}}/{{{safe_title}}}" style="font-size:16px;">{{{title}}}</a></div>
+                    {{/if}}
+                    {{/if}}
+
+                    <div class="codo_topics_topic_name">
+                        <a href="{{const "RURI"}}user/profile/{{{id}}}"><span class="role_styled role_{{{role}}}">{{{name}}}</span></a>
+                        <span>{{{i18n "posted"}}} {{post_created}}</span>
+                    </div>
+
+
+                    {{#if new_topic}}
+                    <a title="{{{i18n "new topic"}}}" class="codo_post_statistics" href="{{{const "RURI"}}}topic/{{topic_id}}/{{{safe_title}}}">
+                    <div class='codo_new_topic_badge'>{{{i18n "New"}}}</div>
+                    </a>
+                    {{/if}}
+                </div>
+            </div>
+
+
+        </div>
+
+    <div class="codo_post_statistics col-md-2">
+        <div class="">
+            <div class="codo_post_statistics_label">
+                {{{i18n "Replies"}}}
+            </div>
+            <div class="codo_post_statistics_value">
+                {{no_replies}}
+            </div>
+        </div>
+        <div class="">
+            <div class="codo_post_statistics_label">
+                {{{i18n "Views"}}}
+            </div>
+            <div class="codo_post_statistics_value">
+                {{no_views}}
+            </div>
+        </div>
+    </div>
+
+
+        <div class="codo_topics_topic_foot col-md-2">
+
+
+            {{#if last_post_time}}
+            <div class="codo_topics_last_post">
+                <div><a class="codo_topics_last_post_name" href="{{{const "RURI"}}}user/profile/{{last_post_uid}}">{{last_post_name}}</a></div>
+                <div class='codo_topics_last_post_time'><a href="{{{const "RURI"}}}topic/{{{topic_id}}}/{{{safe_title}}}/post-{{{last_post_id}}}#post-{{{last_post_id}}}">{{last_post_time}}</a></div>
+            </div>
+            {{/if}}
+            {{#if new_replies}}
+            <a title="{{{i18n "new replies"}}}"  href="{{{const "RURI"}}}topic/{{{topic_id}}}/{{{safe_title}}}/post-{{{last_reply_id}}}#post-{{{last_reply_id}}}"><div class='codo_unread_replies'>{{{new_replies}}}</div></a>
+            {{/if}}
+
+        </div>
+
+    </article>
+    {{/each}}
+</div>

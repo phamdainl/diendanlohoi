@@ -1,0 +1,178 @@
+<?php
+
+/*
+ * @CODOLICENSE
+ */
+
+namespace CODOF\Smarty;
+
+use CODOF\Time;
+use CODOF\User\User;
+use CODOF\Util;
+
+class Layout
+{
+
+    public static function load($tpl, $css_files = array(), $js_files = array())
+    {
+
+        \CODOF\Util::inc_global_views();
+
+        //This sets all variables which will be used by the theme
+        require CURR_THEME_PATH . 'theme.php';
+
+        $page = array();
+
+        \CODOF\Hook::call('before_site_head');
+        \CODOF\Hook::call('tpl_before_' . str_replace("/", "_", $tpl));
+
+        $asset = new \CODOF\Asset\Stream();
+
+        $page["head"]["css"] = $asset->dumpCSS();
+
+        //\CODOF\Theme\Js::sort_js();
+
+        $page["head"]["js"] = $asset->dumpJS('head');
+        $page["body"]["js"] = $asset->dumpJS('body');
+        $page["defer"] = json_encode($asset->deferred());
+
+        //after all modification its time for smarty to display the mod data
+        $smarty = Single::get_instance();
+
+        if (strpos($tpl, ":") !== FALSE) {
+            list($pluginName, $tpl) = explode(":", $tpl);
+            $smarty->addTemplateDir(PLUGIN_DIR . $pluginName . '/');
+        }
+
+        $site_title = \CODOF\Util::get_opt('site_title');
+        $sub_title = \CODOF\Store::get('sub_title');
+
+        $smarty->assign('site_title', $site_title);
+        $smarty->assign('sub_title', $sub_title);
+        $smarty->assign('home_title', \CODOF\Store::get('home_title', _t('All topics')));
+
+        $smarty->assign('site_url', \CODOF\Util::get_opt('site_url'));
+        $smarty->assign('logged_in', \CODOF\User\CurrentUser\CurrentUser::loggedIn());
+
+        $smarty->assign('login_url', \CODOF\User\User::getLoginUrl());
+        $smarty->assign('logout_url', \CODOF\User\User::getLogoutUrl());
+        $smarty->assign('register_url', \CODOF\User\User::getRegisterUrl());
+        $smarty->assign('profile_url', \CODOF\User\User::getProfileUrl());
+
+        $smarty->assign('page', $page);
+        $smarty->assign('CSRF_token', \CODOF\Access\CSRF::get_token());
+        $smarty->assign('php_time_now', time());
+
+        $smarty->assign('forum_tags_num', \CODOF\Util::get_opt('forum_tags_num'));
+        $smarty->assign('forum_tags_len', \CODOF\Util::get_opt('forum_tags_len'));
+        $smarty->assign('hide_msg_switch', Util::get_opt('sidebar_hide_topic_messages'));
+        $smarty->assign('infinite_scroll_switch', Util::get_opt('sidebar_infinite_scrolling'));
+
+        $smarty->assign('translations', \CODOF\Store::get('translations', array()));
+        $smarty->assign('tpl', $tpl);
+
+        $category = new \CODOF\Forum\Category();
+        $canCreateTopicInAtleastOneCategory = $category->canCreateTopicInAtleastOne();
+        $smarty->assign('canCreateTopicInAtleastOneCategory', $canCreateTopicInAtleastOneCategory);
+
+        $page = \CODOF\Store::get('rel:canonical_page', isset($_GET['u']) ? $_GET['u'] : '');
+        $smarty->assign('canonical', rtrim(RURI, '/') . strip_tags(str_replace('"', '&quot;', $page))) ;
+
+        if (\CODOF\Store::has('rel:prev')) {
+
+            $smarty->assign('rel_prev', \CODOF\Store::get('rel:prev'));
+        }
+
+        if (\CODOF\Store::has('rel:next')) {
+
+            $smarty->assign('rel_next', \CODOF\Store::get('rel:next'));
+        }
+
+        if (\CODOF\Store::has('meta:robots')) {
+
+            $smarty->assign('meta_robots', \CODOF\Store::get('meta:robots'));
+        }
+
+        $og = array(
+            "type" => \CODOF\Store::get('og:type', 'website'),
+            "title" => \CODOF\Store::get('og:title', $sub_title . ' | ' . $site_title),
+        );
+
+        if (\CODOF\Store::has('og:url')) {
+
+            $og['url'] = \CODOF\Store::get('og:url');
+        }
+        if (\CODOF\Store::has('og:desc')) {
+
+            $og['desc'] = \CODOF\Store::get('og:desc');
+        } else {
+
+            $og['desc'] = \CODOF\Util::get_opt('site_description');
+        }
+        if (\CODOF\Store::has('og:image')) {
+
+            $og['image'] = \CODOF\Store::get('og:image');
+        }
+
+
+        $smarty->assign('og', $og);
+
+        if (\CODOF\Store::has('article:published')) {
+
+            $smarty->assign('article_published', \CODOF\Store::get('article:published'));
+        }
+
+        if (\CODOF\Store::has('article:modified')) {
+
+            $smarty->assign('article_modified', \CODOF\Store::get('article:modified'));
+        }
+
+        $I = \CODOF\User\User::get();
+        //current user details
+        $smarty->assign('I', $I);
+        $smarty->assign('can_moderate_posts', $I->can('moderate posts'));
+        $smarty->assign('roleName', User::getRoleName($I->rid));
+        $smarty->assign('today', Time::get_pretty_time(\time(), true));
+
+        if (\CODOF\User\CurrentUser\CurrentUser::loggedIn()) {
+            $notifier = new \CODOF\Forum\Notification\Notifier();
+            $smarty->assign('unread_notifications', $notifier->getNoOfUnread());
+        } else {
+
+            $smarty->assign('unread_notifications', 0);
+        }
+
+        $roleStyles = "";
+        if (Util::optionExists("role_styles")) {
+            $roleStyles = Util::get_opt("role_styles");
+        }
+        $smarty->assign("roleStyles", $roleStyles);
+
+        $html = $smarty->fetch("$tpl.tpl");
+
+        echo $html;
+    }
+
+    public static function not_found()
+    {
+
+        $css_files = array();
+        $view = "not_found";
+
+        \CODOF\Store::set('sub_title', _t('Page not found'));
+
+        Layout::load($view, $css_files);
+    }
+
+    public static function access_denied()
+    {
+
+        $css_files = array();
+        $view = 'access_denied';
+
+        \CODOF\Store::set('sub_title', _t('Access denied'));
+
+        Layout::load($view, $css_files);
+    }
+
+}
